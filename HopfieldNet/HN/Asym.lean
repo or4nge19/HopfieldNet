@@ -6,7 +6,6 @@ Authors: Matteo Cipollina
 
 import HopfieldNet.HN.Core
 import Mathlib.LinearAlgebra.Matrix.PosDef
-set_option linter.unusedVariables false
 
 /-!
 # Asymmetric Hopfield Networks
@@ -90,8 +89,7 @@ abbrev AsymmetricHopfieldNetwork (R U : Type) [Field R] [LinearOrder R] [IsStric
   /- The network function for neuron `u`, given weights `w` and predecessor states `pred`. -/
   fnet u w pred _ := HNfnet u w pred
   /- The activation function for neuron `u`, given input and threshold `θ`. -/
-  fact u input θ := HNfact (θ.get 0) input
-  /- The output function, given the activation state `act`. -/
+  fact u (_current_act_val : R) (net_input_val : R) (θ_vec : Vector R 1) := HNfact (θ_vec.get 0) net_input_val  /- The output function, given the activation state `act`. -/
   fout _ act := HNfout act
   /- A predicate that the activation state `act` is either 1 or -1. -/
   pact act := act = 1 ∨ act = -1
@@ -111,12 +109,14 @@ Parameters:
 Returns:
 - A pair (A, S) where A is antisymmetric, S is positive definite, and w = A + S
 -/
-def getAsymmetricDecomposition (wθ : Params (AsymmetricHopfieldNetwork R U))
+noncomputable def getAsymmetricDecomposition (wθ : Params (AsymmetricHopfieldNetwork R U))
     (hw' : ∃ (A S : Matrix U U R), A.IsAntisymm ∧ Matrix.PosDef S ∧ wθ.w = A + S ∧ (∀ i, wθ.w i i ≥ 0)) :
     Matrix U U R × Matrix U U R :=
-  let A := (1/2) • (wθ.w - wθ.w.transpose)
-  let S := (1/2) • (wθ.w + wθ.w.transpose)
-  (A, S)
+  let w := wθ.w
+  let one_half : R := (1 : R) / (2 : R)
+  let A_matrix := one_half • (w - wᵀ)
+  let S_matrix := one_half • (w + wᵀ)
+  (A_matrix, S_matrix)
 
 /--
 Computes the local field for a neuron in an asymmetric Hopfield network.
@@ -396,7 +396,7 @@ def mkAsymmetricParams (w : Matrix U U R) (θ : U → Vector R 1) [Nonempty U]
   hw := hw
   hw' := hasym  -- The asymmetric decomposition property
   θ := θ
-  σ := fun _ => Vector.mkEmpty 0
+  σ := fun _ => Vector.emptyWithCapacity 0
 
 /--
 Attempts to find a stable state of an asymmetric Hopfield network by running a fixed number of updates.

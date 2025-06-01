@@ -91,6 +91,7 @@ lemma sum_over_subset (f : α → β) (s : Finset α) [Fintype α] [AddCommMonoi
   simp_rw [← sum_filter]; congr;
   ext; simp only [mem_filter, mem_univ, true_and]
 
+omit [LinearOrder R] [IsStrictOrderedRing R] in
 @[simp]
 lemma isSymm_sum (f : Fin m → Matrix U U R) (hi : ∀ i, (f i).IsSymm) :
   (∑ x : Fin m, f x).IsSymm := by
@@ -124,7 +125,6 @@ lemma filter_sum_pos_exists {α β : Type} [Fintype α] [DecidableEq β] {p : α
         le_refl]
     simp_all only [Finset.sum_eq_zero all_zero, sum_const_zero, gt_iff_lt, lt_self_iff_false]
   rcases exists_pos with ⟨x, h_mem, h_p_pos⟩
-  -- Membership in filter means f x = y
   simp only [filter_subset, mem_filter, mem_univ, true_and] at h_mem
   subst h_mem
   simp_all only [gt_iff_lt]
@@ -138,21 +138,15 @@ lemma filter_sum_pos_exists {α β : Type} [Fintype α] [DecidableEq β] {p : α
 @[simp]
 lemma ENNReal.le_iSup_finset {α : Type} {s : Finset α} {f : α → ENNReal} :
     ∑ a ∈ s, f a ≤ ⨆ (t : Finset α), ∑ a ∈ t, f a := by
-  -- Use s as witness for supremum bound
   exact le_iSup_iff.mpr fun b a ↦ a s
 
 /-- If there exists an element with positive value, then the telescope sum is positive --/
 @[simp]
 lemma ENNReal.tsum_pos_of_exists {α : Type} {f : α → ENNReal} (h : ∃ a : α, f a > 0) :
   (∑' a, f a) > 0 := by
-  -- Extract the element with positive value
   rcases h with ⟨a₀, h_pos⟩
-
-  -- Show that sum is at least as large as the term f a₀
   have h_le : f a₀ ≤ ∑' a, f a := by
     apply ENNReal.le_tsum
-
-  -- Since f a₀ > 0 and sum ≥ f a₀, the sum must be positive
   exact lt_of_lt_of_le h_pos h_le
 
 /-- If there exists a positive element satisfying filter condition, filtered sum is positive --/

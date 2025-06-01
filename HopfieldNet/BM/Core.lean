@@ -40,6 +40,7 @@ open Finset Matrix NeuralNetwork State ENNReal Real PMF
 
 variable {R U : Type} [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [Nonempty U]
 
+omit [IsStrictOrderedRing R] in
 lemma BM_pact_of_HNfact (θ val : R) :
   (fun act : R => act = 1 ∨ act = -1) (HNfact θ val) := by
   unfold HNfact
@@ -48,6 +49,7 @@ lemma BM_pact_of_HNfact (θ val : R) :
   · right; rfl
 
 variable [Coe R ℝ]
+
 
 /--
 `BoltzmannMachine` defines a Boltzmann Machine neural network.
@@ -68,8 +70,7 @@ abbrev BoltzmannMachine (R U : Type) [Field R] [LinearOrder R] [IsStrictOrderedR
   pw := fun w => w.IsSymm ∧ ∀ u, w u u = 0,
   κ1 := fun _ => 0, κ2 := fun _ => 1,
   fnet := fun u w_u pred _ => HNfnet u w_u pred,
-  fact := fun u input θ_vec => HNfact (θ_vec.get 0) input,
-  fout := fun _ act => act,
+  fact := fun u (_current_act_val : R) (net_input_val : R) (θ_vec : Vector R 1) => HNfact (θ_vec.get 0) net_input_val,  fout := fun _ act => act,
   pact := fun act => act = (1 : R) ∨ act = (-1 : R), -- This is the pact for BoltzmannMachine
   hpact := fun _ _ _ _ _ _ _ _ => BM_pact_of_HNfact _ _
 }

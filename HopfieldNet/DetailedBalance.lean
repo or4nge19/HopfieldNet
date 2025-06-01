@@ -1,7 +1,12 @@
+/-
+Copyright (c) 2025 Matteo Cipollina. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Matteo Cipollina
+-/
+
 import HopfieldNet.Stochastic
 import Mathlib.Analysis.Normed.Field.Instances
 import Mathlib.Data.ENNReal.Basic
-
 
 open Finset Matrix NeuralNetwork State
 
@@ -32,8 +37,8 @@ lemma mul_div_cancel_of_ne_zero {α : Type*} [Field α] (a b : α) (h : b ≠ 0)
 
 /-- In a tsum over all neurons, only the neuron where s and s' differ contributes --/
 lemma gibbs_single_site_tsum {R U : Type}
-  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [HDiv ℕ ℕ ℝ]
-  [Nonempty U] [Coe R ℝ] [Inv ℕ] [CommGroup ℕ] [Field ℕ]
+  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U]
+  [Nonempty U] [Coe R ℝ]
   (wθ : Params (HopfieldNetwork R U)) (T : ℝ) (s s' : (HopfieldNetwork R U).State)
   (u : U) (h_diff_at_u : s.act u ≠ s'.act u)
   (h_same_elsewhere : ∀ v : U, v ≠ u → s.act v = s'.act v) :
@@ -86,7 +91,8 @@ lemma gibbs_single_site_tsum {R U : Type}
     probability is the product of the probability of selecting u and the probability
     of updating u to the new value --/--/
 lemma gibbs_single_site_transition_prob {R U : Type}
-  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [Nonempty U] [Field ℕ] [CommGroup ℕ] [Coe R ℝ] [HDiv ℕ ℕ ℝ] [Inv ℕ]
+  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U]
+    [Nonempty U] [Coe R ℝ]
   (wθ : Params (HopfieldNetwork R U)) (T : ℝ) (s s' : (HopfieldNetwork R U).State)
   (u : U) (h_diff_at_u : s.act u ≠ s'.act u)
   (h_same_elsewhere : ∀ v : U, v ≠ u → s.act v = s'.act v) :
@@ -94,7 +100,8 @@ lemma gibbs_single_site_transition_prob {R U : Type}
   ENNReal.toReal (((1 : ENNReal) / (Fintype.card U : ENNReal)) *
   (NN.State.gibbsUpdateSingleNeuron s wθ T u) (NN.State.updateNeuron s u (s'.act u) (s'.hp u))) := by
   have h_eq := gibbs_single_site_tsum wθ T s s' u h_diff_at_u h_same_elsewhere
-  have h_rewrite : ∑' (a : U), (PMF.ofFintype (fun x => 1 / ↑(Fintype.card U)) (by exact uniform_neuron_selection_prob_valid)) a *
+  have h_rewrite : ∑' (a : U), (PMF.ofFintype (fun x => 1 / ↑(Fintype.card U))
+    (by exact uniform_neuron_selection_prob_valid)) a *
                       (NN.State.gibbsUpdateSingleNeuron s wθ T a) s' =
                       1 / ↑(Fintype.card U) * (NN.State.gibbsUpdateSingleNeuron s wθ T u)
                       (NN.State.updateNeuron s u (s'.act u) (s'.hp u)) := h_eq
@@ -411,7 +418,7 @@ lemma gibbs_update_single_neuron_formula {R U : Type}
   gibbs_update_single_neuron_prob wθ T s u val hval
 
 lemma gibbs_single_site_transition_explicit {R U : Type}
-  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [Nonempty U] [Coe R ℝ][HDiv ℕ ℕ ℝ] [CommGroup ℕ] [Field ℕ]
+  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [Nonempty U] [Coe R ℝ]--[HDiv ℕ ℕ ℝ] [CommGroup ℕ] [Field ℕ]
   (wθ : Params (HopfieldNetwork R U)) (T : ℝ) (s s' : (HopfieldNetwork R U).State)
   (u : U) (h_same_elsewhere : ∀ v : U, v ≠ u → s.act v = s'.act v)
   (_ : θ' (wθ.θ u) = 0) (_ : T > 0) (h_neq : s ≠ s') :
@@ -571,7 +578,8 @@ lemma gibbsSamplingStep_prob_zero_if_multi_site {R U : Type}
 
 -- Main lemma
 lemma gibbs_multi_site_transition {R U : Type}
-  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U] [Nonempty U] [Coe R ℝ] [Inv ℕ] [Coe ℕ ℝ]
+  [Field R] [LinearOrder R] [IsStrictOrderedRing R] [DecidableEq U] [Fintype U]
+    [Nonempty U] [Coe R ℝ] [Inv ℕ] [Coe ℕ ℝ]
   (wθ : Params (HopfieldNetwork R U)) (T : ℝ) (s s' : (HopfieldNetwork R U).State) :
   (¬∃ u : U, ∀ v : U, v ≠ u → s.act v = s'.act v) →
   gibbsTransitionProb wθ T s s' = 0 := by

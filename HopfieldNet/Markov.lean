@@ -162,7 +162,7 @@ The total variation distance between two probability measures on Hopfield networ
 Defined as supremum of |μ(A) - ν(A)| over all measurable sets A.
 -/
 noncomputable def totalVariation (μ ν : Measure ((HopfieldNetwork R U).State)) : ENNReal :=
-  ⨆ (A : Set ((HopfieldNetwork R U).State)) (hA : MeasurableSet A),
+  ⨆ (A : Set ((HopfieldNetwork R U).State)) (_ : MeasurableSet A),
     ENNReal.ofReal (abs ((μ A).toReal - (ν A).toReal))
 
 /--
@@ -263,7 +263,6 @@ lemma boltzmannDistribution_div_sum [IsOrderedCancelAddMonoid ENNReal](wθ : Par
     rw [mul_comm b⁻¹ a]
   simp only [h_div_def]
   rw [Finset.sum_mul]
-
 
 /-- The sum of Boltzmann probabilities equals 1 -/
 lemma boltzmannDistribution_sum_one [IsOrderedCancelAddMonoid ENNReal] (wθ : Params (HopfieldNetwork R U)) (T : ℝ) (hT : T ≠ 0) :

@@ -87,7 +87,7 @@ variable [Nonempty U]
 
 /--
 Extracts the first element from a vector of length 1.
---/
+-/
 def θ' : Vector R ((HopfieldNetwork R U).κ2 u) → R := fun (θ : Vector R 1) => θ.get 0
 
 /--
@@ -109,15 +109,15 @@ Defines the Hebbian learning rule for a Hopfield Network.
 
 Given a set of patterns `ps`, this function returns the network parameters
 using the Hebbian learning rule, which adjusts weights based on pattern correlations.
---/
+-/
 def Hebbian {m : ℕ} (ps : Fin m → (HopfieldNetwork R U).State) : Params (HopfieldNetwork R U) where
   /- The weight matrix, calculated as the sum of the outer products of the patterns minus
       a scaled identity matrix. -/
   w := ∑ k, outerProduct (ps k) (ps k) - (m : R) • (1 : Matrix U U R)
   /- The threshold function, which is set to a constant value of 0 for all units. -/
   θ u := ⟨#[0], rfl⟩
-  /- The state function, which is set to an empty vector. --/
-  σ _ := Vector.emptyWithCapacity 0
+  /- The state function, which is set to an empty vector. -/
+  σ _ := Vector.mkEmpty 0
   /- A proof that the weight matrix is symmetric and satisfies the Hebbian learning rule. -/
   hw u v huv := by
     simp only [sub_apply, smul_apply, smul_eq_mul]
@@ -191,7 +191,7 @@ abbrev NeuralNetwork.State.Wact u v := wθ.w u v * s.act u * s.act v
 
 /--
 `NeuralNetwork.State.Eθ` computes the sum of `θ' (wθ.θ u) * s.act u` for all `u`.
---/
+-/
 def NeuralNetwork.State.Eθ := ∑ u, θ' (wθ.θ u) * s.act u
 
 /--
@@ -465,7 +465,7 @@ Parameters:
 - `s`: A state.
 - `useq`: A sequence of states.
 
---/
+-/
 def seqStates' {wθ : Params (HopfieldNetwork R U)} (s : State' wθ) (useq : ℕ → U) : ℕ → State' wθ
   := seqStates wθ s useq
 
@@ -475,7 +475,7 @@ and the number of pluses.
 A state `s1` is before `s2` if:
 - `s1` has lower energy than `s2`, or
 - `s1` has the same energy as `s2`, but more pluses.
---/
+-/
 def stateLt (s1 s2 : State' wθ) : Prop := s1.E wθ < s2.E wθ ∨ s1.E wθ = s2.E wθ ∧ s2.pluses < s1.pluses
 
 @[simp]
@@ -605,14 +605,14 @@ instance : DecidablePred (fun s' => s' < s) := fun s' => by
 
 /--
 `states_less` is the set of patterns in a Hopfield Network that are less than a given state `s`.
---/
+-/
 def states_less : Finset (HopfieldNetwork R U).State := {s' : State' wθ | s' < s}
 
 open Fintype
 
 /--
 `num_of_states_less` returns the number of states that come before a given state `s`.
---/
+-/
 def num_of_states_less := Fintype.card (states_less s)
 
 @[simp]
@@ -699,7 +699,7 @@ instance (s : State' wθ): Decidable (isStable wθ s) := Fintype.decidableForall
 
 /--
 A function that returns the stabilized state after updating.
---/
+-/
 def HopfieldNet_stabilize (wθ : Params (HopfieldNetwork R U))
     (s : State' wθ) (useq : ℕ → U) (hf : fair useq) : State' wθ :=
   (seqStates' s useq) (Nat.find (HopfieldNet_convergence_fair s useq hf))

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.6)  14 MAY 2025 13:57
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2025.4.6)  25 MAY 2025 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -731,8 +731,15 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
 (Font)              scaled to size 4.99947pt on input line 29.
 [1
 
-] [2]) (./bib.tex (/home/michail/HopfieldNet/blueprint/print/print.bbl
-[3]))) [4
+] [2]) (./Hopfield1982.tex [3]
+Chapter 2.
+[4
+
+]
+Missing character: There is no ≤ (U+2264) in font [lmroman10-regular]:mapping=t
+ex-text;!
+[5] [6] [7]) (./biblio.tex (/home/michail/HopfieldNet/blueprint/print/print.bbl
+[8]))) [9
 
 ] (/home/michail/HopfieldNet/blueprint/print/print.aux)
  ***********
@@ -740,16 +747,16 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `print.out' has not changed.
-(rerunfilecheck)             Checksum: 79BD0BE5488F30A6B202AEEC077BCEDF;53.
+(rerunfilecheck)             Checksum: FF1492BA5F23E958DEF420C25CD4CC36;1422.
  ) 
 Here is how much of TeX's memory you used:
- 16838 strings out of 476846
- 308906 string characters out of 5803825
+ 16912 strings out of 476846
+ 310764 string characters out of 5803825
  1936627 words of memory out of 5000000
- 38539 multiletter control sequences out of 15000+600000
- 564885 words of font info for 93 fonts, out of 8000000 for 9000
+ 38608 multiletter control sequences out of 15000+600000
+ 564901 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  90i,9n,114p,542b,536s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on /home/michail/HopfieldNet/blueprint/print/print.pdf (5 pages)
-.
+Output written on /home/michail/HopfieldNet/blueprint/print/print.pdf (10 pages
+).

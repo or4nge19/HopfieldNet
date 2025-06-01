@@ -1,17 +1,17 @@
 # Fdb version 4
-["bibtex /home/michail/HopfieldNet/blueprint/print/print"] 1747223478.16175 "/home/michail/HopfieldNet/blueprint/print/print.aux" "/home/michail/HopfieldNet/blueprint/print/print.bbl" "/home/michail/HopfieldNet/blueprint/print/print" 1747223851.90942 0
-  "./HN.bib" 1747220960.46423 28649 f8b374e9b799eb381227a485ecccbfd2 ""
-  "/home/michail/HopfieldNet/blueprint/print/print.aux" 1747223851.77604 1472 e07e58630d27d2b5934d6ac54307667b "pdflatex"
+["bibtex /home/michail/HopfieldNet/blueprint/print/print"] 1747941834.14536 "/home/michail/HopfieldNet/blueprint/print/print.aux" "/home/michail/HopfieldNet/blueprint/print/print.bbl" "/home/michail/HopfieldNet/blueprint/print/print" 1748183681.69904 0
+  "./HopfieldNet.bib" 1747919202.89354 28683 096e09c85be27166c7415c3fca44f5f8 ""
+  "/home/michail/HopfieldNet/blueprint/print/print.aux" 1748183681.60952 5928 f84f195d4a84b27d631d40e5ead6d611 "pdflatex"
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   (generated)
   "/home/michail/HopfieldNet/blueprint/print/print.bbl"
   "/home/michail/HopfieldNet/blueprint/print/print.blg"
   (rewritten before read)
-["pdflatex"] 1747223850.88624 "print.tex" "/home/michail/HopfieldNet/blueprint/print/print.pdf" "print" 1747223851.90979 0
+["pdflatex"] 1748183680.81662 "print.tex" "/home/michail/HopfieldNet/blueprint/print/print.pdf" "print" 1748183681.6992 0
   "/etc/texmf/web2c/texmf.cnf" 1725269715.58345 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/michail/HopfieldNet/blueprint/print/print.aux" 1747223851.77604 1472 e07e58630d27d2b5934d6ac54307667b "pdflatex"
-  "/home/michail/HopfieldNet/blueprint/print/print.bbl" 1747223478.20098 1344 2d7fcdd2bce5f174a2e9027e12e96a40 "bibtex /home/michail/HopfieldNet/blueprint/print/print"
-  "/home/michail/HopfieldNet/blueprint/print/print.out" 1747223851.77604 53 79bd0be5488f30a6b202aeec077bcedf "pdflatex"
+  "/home/michail/HopfieldNet/blueprint/print/print.aux" 1748183681.60952 5928 f84f195d4a84b27d631d40e5ead6d611 "pdflatex"
+  "/home/michail/HopfieldNet/blueprint/print/print.bbl" 1747941834.15936 1597 36cf27bbe9aa36ce09c9fbf86c46dc5c "bibtex /home/michail/HopfieldNet/blueprint/print/print"
+  "/home/michail/HopfieldNet/blueprint/print/print.out" 1748183681.60952 1422 ff1492ba5f23e958def420c25cd4cc36 "pdflatex"
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm" 1246382020 1496 c79f6914c6d39ffb3759967363d1be79 ""
@@ -97,12 +97,13 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1743964917 9087048 8e27674ad95d63935323e08af867785b ""
-  "NN.tex" 1747223843.06197 8515 5b966af0c737cd28df476c3485463230 ""
-  "bib.tex" 1747161386.08483 43 e17b8b5838b28779e987608ff9a892d2 ""
-  "content.tex" 1747162742.20352 391 7a18cfd52421cd228e3d2d698c5b8536 ""
+  "Hopfield1982.tex" 1748183678.41451 21358 01f2b1f88305b27e311db859d602034f ""
+  "NN.tex" 1747929575.14944 8673 82c24f880e7627f148e0fc3db52a4386 ""
+  "biblio.tex" 1747919471.463 52 3acddeda285d7c5e358914388fb3b2cd ""
+  "content.tex" 1747919543.78936 413 30d37d4fcd61d5c5321e8d1e325ca0bf ""
   "macros/common.tex" 1743949991.97655 820 60fafcc3aa944a5e60030581a943ef6b ""
   "macros/print.tex" 1743949991.98255 1101 87627b2ec24fef68edc71c13f43f7bab ""
-  "print.tex" 1743949991.99955 1124 3ea411a72ef15a29d7e68b3e890c9942 ""
+  "print.tex" 1747921411.5318 1124 3ea411a72ef15a29d7e68b3e890c9942 ""
   (generated)
   "/home/michail/HopfieldNet/blueprint/print/print.aux"
   "/home/michail/HopfieldNet/blueprint/print/print.log"

@@ -105,15 +105,13 @@ structure ContentAddressableMemory (R U : Type)
 
 /-! ### Pattern Completion and Error Correction -/
 
-/--
-A generic function type representing how a metric (like completion probability or familiarity)
+/-- A generic function type representing how a metric (like completion probability or familiarity)
 decays or changes based on a distance-like value and network size.
 Parameters:
 - `metric_value`: The input value to the decay function (e.g., distance from threshold, closest distance).
 - `network_size`: The size of the network (e.g., `Fintype.card U`).
 - `R`: The type for the output (e.g., probabilities).
-Returns a value in `R`.
--/
+Returns a value in `R`. -/
 def MetricDecayFunction (R : Type) := (metric_value : ℕ) → (network_size : ℕ) → R
 
 /--
@@ -147,10 +145,8 @@ def AbstractCompletionProbability [Field R] [LinearOrder R] [IsStrictOrderedRing
       decay_func distance_beyond_threshold (Fintype.card U)
   else 0
 
-/--
-`ErrorCorrection` quantifies the network's ability to correct errors in the input pattern.
-It's measured as the reduction in Hamming distance to the closest stored pattern after convergence.
--/
+/-- `ErrorCorrection` quantifies the network's ability to correct errors in the input pattern.
+It's measured as the reduction in Hamming distance to the closest stored pattern after convergence. -/
 def ErrorCorrection (cam : ContentAddressableMemory R U)
     (s : PhaseSpacePoint R U) (useq : ℕ → U) (hf : fair useq) : ℕ :=
   let s' := HopfieldNet_stabilize cam.params s useq hf;
@@ -312,7 +308,7 @@ noncomputable def GeneralizationCapability
     0
   (correctCount : R) / (num_categories : R)
 
-/- A simple measure of how closely two patterns match, returning a real number. -/
+/-- A simple measure of how closely two patterns match, returning a real number. -/
 def PatternSimilarity (p q : PhaseSpacePoint R U) : R :=
   (Fintype.card U - HammingDistance p q : ℕ)
 

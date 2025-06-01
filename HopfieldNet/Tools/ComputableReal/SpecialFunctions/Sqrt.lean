@@ -63,7 +63,7 @@ theorem rsqrt_le_boundedSqrt (y : ℚ) (n : ℕ) (b : ℕ) (hb : 0 < b):
         rw [Int.sqrt.eq_1]
         norm_cast
         convert this
-        conv_rhs => apply (Int.toNat_ofNat _).symm
+        conv_rhs => apply (Int.toNat_natCast _).symm
         push_cast
         congr
         exact (Int.toNat_of_nonneg ((Rat.num_pos.mpr hy).le)).symm

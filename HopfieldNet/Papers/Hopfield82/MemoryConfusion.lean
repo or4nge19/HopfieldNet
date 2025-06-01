@@ -25,7 +25,7 @@ The error function `erf(x)` is defined as:
   erf(x) = (2/√π) ∫₀ˣ e^(-t²) dt
 
 This function is central in probability theory, especially for normal distributions.
---/
+-/
 noncomputable def Real.erf (x : ℝ) : ℝ :=
   (2 / Real.sqrt π) * ∫ (t : ℝ) in Set.Icc 0 x, Real.exp (-(t^2))
 

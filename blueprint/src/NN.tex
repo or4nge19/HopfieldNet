@@ -1,6 +1,6 @@
 \chapter{NN}
 
-We strictly follow Chapter 4 of \cite{comp} for the definitions of neural and Hopfield networks.
+We strictly follow Chapter 4 of ~\cite{comp} for the definitions of neural and Hopfield networks.
 
 \begin{definition}\label{NeuralNetwork}
 \lean{NeuralNetwork}
@@ -66,7 +66,7 @@ receive their own output as input. Instead, each neuron $u$ receives inputs from
 \end{itemize}
 \end{definition}
 
-\begin{theorem}[Convergence Theorem for Hopfield networks (Theorem 8.1, \cite{comp})] \label{Convergence}
+\begin{theorem}\label{HopfieldNet_convergence_fair}
 \lean{HopfieldNet_convergence_fair}
 \uses{HopfieldNetwork}
 \leanok  
@@ -74,8 +74,14 @@ If the activations of the neurons of a Hopfield network are updated asynchronous
 a stable state is reached in a finite number of steps.
 \end{theorem}
 
-\begin{theorem}[Corollary of convergence Theorem for Hopfield networks (Theorem 8.1, \cite{comp})] 
-\label{ConvergenceCor}
+\begin{theorem} \label{HopfieldNet_stabilize}
+\lean{HopfieldNet_stabilize}
+\uses{HopfieldNet_convergence_fair}
+\leanok  
+A function that returns the stabilized state after updating.
+\end{theorem}
+
+\begin{theorem}[Corollary of convergence Theorem for Hopfield networks (Theorem 8.1, \cite{comp})]\label{HopfieldNet_convergence_fairCor}
 \lean{HopfieldNet_convergence_cyclic}
 \uses{HopfieldNetwork}
 \leanok  
@@ -117,7 +123,6 @@ $$P(s) = \frac{e^{-E(s)/T}}{Z}$$
 where $E(s)$ is the energy of state $s,$ $T$ is the temperature parameter and 
 $Z = \sum_{s} e^{-E(s)/T}$ is the partition function.
 \end{definition}
-
 
 \begin{definition}\label{GibbsSampling}
 \lean{NN.State.gibbsUpdateSingleNeuron}

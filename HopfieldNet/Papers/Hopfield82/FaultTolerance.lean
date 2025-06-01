@@ -47,14 +47,14 @@ noncomputable def DeleteNeuron [DecidableEq U] (i : U)
       specialize hsymm j k
       exact hsymm
 
-/--
-The `FaultTolerance` of a Hopfield network is its ability to maintain function
-despite the failure of some components. The paper notes that these networks are
-inherently robust to component failures.
--/
-/- Apply DeleteNeuron to a list of neurons sequentially --/
+/-- Apply DeleteNeuron to a list of neurons sequentially -/
 noncomputable def DeleteNeurons [DecidableEq U] (neurons : List U) (wθ : Params (HopfieldNetwork R U)) : Params (HopfieldNetwork R U) :=
   List.foldl (fun acc neuron => DeleteNeuron neuron acc) wθ neurons
+
+
+-- The `FaultTolerance` of a Hopfield network is its ability to maintain function
+-- despite the failure of some components. The paper notes that these networks are
+-- inherently robust to component failures.
 
 /--
 Defines fault tolerance for a Hopfield network.
@@ -87,7 +87,7 @@ def FaultTolerance {m : ℕ} [DecidableEq U]
     ((ps k).Up wθ' u_check).act u_check = (ps k).act u_check
 
 omit [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] in
-/-- When m is at most a tenth of total neurons, each pattern is fixed point in the undamaged network --/
+/-- When m is at most a tenth of total neurons, each pattern is fixed point in the undamaged network -/
 @[simp]
 lemma pattern_stability_in_hebbian {m : ℕ} [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [DecidableEq U]
     (ps : Fin m → (HopfieldNetwork R U).State)
@@ -385,7 +385,7 @@ lemma delete_neuron_from_deleted_network {m : ℕ}
   apply delete_one_neuron_effect_general (List.foldl (fun acc n => DeleteNeuron n acc) (Hebbian ps) prev_deleted)
     neuron u hu (ps k).act
 
--- Helper lemma: DeleteNeuron commutes with foldl of DeleteNeuron if the neuron is not in the list
+/-- Helper lemma: DeleteNeuron commutes with foldl of DeleteNeuron if the neuron is not in the list -/
 lemma commute_delete_foldl [DecidableEq U]
     (i : U) (base : Params (HopfieldNetwork R U)) (l : List U) (h_nodup_l : l.Nodup) (hi_notin_l : i ∉ l) :
     DeleteNeuron i (List.foldl (fun acc neuron => DeleteNeuron neuron acc) base l) =
@@ -402,7 +402,7 @@ lemma commute_delete_foldl [DecidableEq U]
     rw [ih_commute (DeleteNeuron hd base) h_nodup_l hi_notin_tl]
     rw [delete_neurons_order_independent base i hd]
 
--- Helper lemma: Weights are preserved by foldl if indices are not in the list
+/-- Helper lemma: Weights are preserved by foldl if indices are not in the list-/
 lemma foldl_delete_preserves_weights [DecidableEq U]
     (base : Params (HopfieldNetwork R U))
     (l : List U) (h_nodup_l : l.Nodup) (v w : U) (hv_notin : v ∉ l) (hw_notin : w ∉ l) :
@@ -468,7 +468,7 @@ lemma deleted_neuron_weight_contribution [DecidableEq U] (wθ : Params (Hopfield
   rw [sum_singleton]
 
 omit [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] in
-/-- DeleteNeurons removes weights connected to deleted neurons --/
+/-- DeleteNeurons removes weights connected to deleted neurons -/
 lemma deleted_neurons_field_effect {m : ℕ} [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [DecidableEq U]
     (ps : Fin m → (HopfieldNetwork R U).State)
     (deleted_neurons : Finset U) (u : U) (hu : u ∉ deleted_neurons) (k : Fin m) :
@@ -532,7 +532,6 @@ from the target pattern `k` and the cross-talk term from other patterns `l ≠ k
 **Hopfield Assumption:** Assumes the standard Hebbian learning rule where `Tᵢᵢ = 0`.
 The `Hebbian` definition in `HN.lean` implements this by subtracting `m • 1`.
 -/
-
 lemma Hebbian_stable (hm : m < Fintype.card U) (ps : Fin m → (HopfieldNetwork R U).State) (j : Fin m)
     (horth : ∀ {i j : Fin m} (_ : i ≠ j), dotProduct (ps i).act (ps j).act = 0):
   isStable (Hebbian ps) (ps j) := by
@@ -673,7 +672,7 @@ lemma deleted_field_bound (hu : u ∉ deleted_neurons)
       rw [add_sub_cancel_left]
 
 omit [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [Nonempty U] [DecidableEq U] in
-/-- With constrained m and limited deleted neurons, the field remains strong enough --/
+/-- With constrained m and limited deleted neurons, the field remains strong enough -/
 lemma field_remains_sufficient {m : ℕ} [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [Nonempty U]
     (hm_cond : m ≤ Fintype.card U / 10) :
   (Fintype.card U : R) - (m : R) - (Fintype.card U / 10 : R) > 0 := by
@@ -714,7 +713,7 @@ lemma field_remains_sufficient {m : ℕ} [Field R] [LinearOrder R] [IsStrictOrde
 
 omit [Fintype U] [Nonempty U] in
 /-- For random orthogonal patterns, the cross-talk term has a bounded absolute value.
-    This is a fundamental assumption from Hopfield's paper about how patterns interact. --/
+    This is a fundamental assumption from Hopfield's paper about how patterns interact. -/
 lemma bound_cross_talk_term_abs [Fintype U] [Nonempty U]
     (ps : Fin m → (HopfieldNetwork R U).State) (deleted_neurons : Finset U)
     (k : Fin m) (u : U) (hu : u ∉ deleted_neurons)
@@ -777,7 +776,7 @@ lemma deleted_field_product_bound [Fintype U] [Nonempty U]
         sorry
 
 /-- With bounded numbers of patterns and deleted neurons, the field remains strong enough
-    to maintain the pattern stability, adjusted for N/5 bound. --/
+    to maintain the pattern stability, adjusted for N/5 bound. -/
 lemma field_remains_sufficient_for_N_div_5 (R : Type) [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [Nonempty U]
     (hm_cond : m ≤ Fintype.card U / 10) :
   (Fintype.card U : R) - (m : R) - (Fintype.card U / 5 : R) > 0 := by
@@ -891,7 +890,7 @@ lemma non_deleted_neuron_maintains_sign_of_activation {m : ℕ} [Nonempty U]
 
 omit [DecidableEq U] in
 /-- When deleting neurons from a Finset, we can use Finset.toList to convert the Finset to a List.
-    This matches the API needed by DeleteNeurons. --/
+    This matches the API needed by DeleteNeurons. -/
 lemma DeleteNeurons_with_Finset [DecidableEq U] (deleted_neurons : Finset U) (wθ : Params (HopfieldNetwork R U)) :
   DeleteNeurons (Finset.toList deleted_neurons) wθ =
   DeleteNeurons deleted_neurons.toList wθ := by
@@ -901,7 +900,7 @@ omit [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [Nonempty U] 
 /-- A Hopfield network can tolerate the failure of up to 10% of its neurons
     while maintaining all stored patterns as fixed points, provided:
     1) The stored patterns are orthogonal
-    2) The number of patterns is at most 10% of the network size --/
+    2) The number of patterns is at most 10% of the network size -/
 theorem fault_tolerance_bound {m : ℕ} [Field R] [LinearOrder R] [IsStrictOrderedRing R] [Fintype U] [DecidableEq U] [Nonempty U]
     (ps : Fin m → (HopfieldNetwork R U).State)
     (horth : ∀ i j : Fin m, i ≠ j → dotProduct (ps i).act (ps j).act = 0) :

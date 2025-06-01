@@ -22,10 +22,6 @@ and the convergence to fixed points.
 
 From the paper (p.2555): "State changes will continue until a least (local) E is reached."
 -/
-/-
-This theorem establishes the connection between energy minimization and convergence
-to fixed points in Hopfield networks, as described in the paper.
--/
 theorem energy_convergence (wθ : Params (HopfieldNetwork R U)) (s : PhaseSpacePoint R U)
     (useq : ℕ → U) (hf : fair useq) :
   ∃ (p : PhaseSpacePoint R U), FixedPoint wθ p ∧

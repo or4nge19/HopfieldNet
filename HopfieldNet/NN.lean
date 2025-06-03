@@ -1,7 +1,14 @@
-import Mathlib
+/-
+Copyright (c) 2024 Michail Karatarakis. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Michail Karatarakis
+-/
+import Mathlib.Combinatorics.Digraph.Basic
+import Mathlib.Data.Matrix.Basic
+import Mathlib.Data.Vector.Basic
 
+open Mathlib Finset
 
-open Finset -- Mathlib Finset is already open by Mathlib import
 
 /-
 A `NeuralNetwork` models a neural network with:
